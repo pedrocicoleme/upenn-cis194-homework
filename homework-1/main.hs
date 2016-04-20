@@ -25,16 +25,10 @@ sumDigits :: [Integer] -> Integer
 sumDigits [] = 0
 sumDigits (x:xs) = (+) (sum (toDigitsRev x)) (sumDigits xs)
 
--- Add the digits of the doubled values and the undoubled digits
--- from the original number. For example, [2,3,16,6] becomes
--- 2+3+1+6+6 = 18.
+-- Exercise 4
 
--- sumList :: (Num a) => [a] -> a
--- sumList [] = 0
--- sumList (x:xs) = (+) x (sumList xs)
-
-sumList :: (Num a) => [a] -> a
-sumList xs = foldr (+) 0 xs
+validate :: Integer -> Bool
+validate x = (rem (sumDigits (doubleEveryOther (toDigits x))) 10) == 0
 
 main :: IO ()
 main = do
@@ -42,7 +36,9 @@ main = do
     print (sumDigits  [16,7,12,5])
     print (doubleEveryOther [1,2,3,3])
     print (doubleEveryOther xs)
-    print (sumList(doubleEveryOther xs))
     print (toDigits 5678053)
     print (toDigits 0)
     print (toDigits (-12))
+
+    print (validate 4012888888881881)
+    print (validate 4012888888881882)
