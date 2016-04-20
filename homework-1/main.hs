@@ -1,3 +1,14 @@
+-- Exercise 1
+
+toDigitsRev :: Integer -> [Integer]
+toDigitsRev x
+    | x <= 0  = []
+    | x < 10  = [x]
+    | otherwise = (rem x 10) : toDigitsRev (div x 10)
+
+toDigits :: Integer -> [Integer]
+toDigits x = reverse (toDigitsRev x)
+
 -- Double the value of every second digit beginning from the right.
 -- That is, the last digit is unchanged; the second-to-last digit is doubled;
 -- the third-to-last digit is unchanged; and so on. For example,
@@ -19,4 +30,8 @@ sumList :: (Num a) => [a] -> a
 sumList xs = foldr (+) 0 xs
 
 main :: IO ()
-main = print (sumList(doubleEverySecond [1,1,1,1,1,1]))
+main = do
+    print (sumList(doubleEverySecond [1,1,1,1,1,1]))
+    print (toDigits 5678053)
+    print (toDigits 0)
+    print (toDigits (-12))
