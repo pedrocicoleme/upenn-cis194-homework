@@ -17,8 +17,13 @@ doubleEverySecond (x:[]) = [x]
 doubleEverySecond (x:y:ys) = x : (y*2) : doubleEverySecond ys
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther xs = reverse(doubleEverySecond (reverse xs))
+doubleEveryOther xs = reverse (doubleEverySecond (reverse xs))
 
+-- Exercise 3
+
+sumDigits :: [Integer] -> Integer
+sumDigits [] = 0
+sumDigits (x:xs) = (+) (sum (toDigitsRev x)) (sumDigits xs)
 
 -- Add the digits of the doubled values and the undoubled digits
 -- from the original number. For example, [2,3,16,6] becomes
@@ -34,6 +39,7 @@ sumList xs = foldr (+) 0 xs
 main :: IO ()
 main = do
     let xs = [1,1,1,1,1,1,1]
+    print (sumDigits  [16,7,12,5])
     print (doubleEveryOther [1,2,3,3])
     print (doubleEveryOther xs)
     print (sumList(doubleEveryOther xs))
