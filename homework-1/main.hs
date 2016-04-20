@@ -9,14 +9,16 @@ toDigitsRev x
 toDigits :: Integer -> [Integer]
 toDigits x = reverse (toDigitsRev x)
 
--- Double the value of every second digit beginning from the right.
--- That is, the last digit is unchanged; the second-to-last digit is doubled;
--- the third-to-last digit is unchanged; and so on. For example,
--- [1,3,8,6] becomes [2,3,16,6].
+-- Exercise 2
 
-doubleEverySecond :: [Int] -> [Int]
+doubleEverySecond :: [Integer] -> [Integer]
 doubleEverySecond [] = []
-doubleEverySecond (x:y:ys) = (x*2) : y : doubleEverySecond ys
+doubleEverySecond (x:[]) = [x]
+doubleEverySecond (x:y:ys) = x : (y*2) : doubleEverySecond ys
+
+doubleEveryOther :: [Integer] -> [Integer]
+doubleEveryOther xs = reverse(doubleEverySecond (reverse xs))
+
 
 -- Add the digits of the doubled values and the undoubled digits
 -- from the original number. For example, [2,3,16,6] becomes
@@ -31,7 +33,10 @@ sumList xs = foldr (+) 0 xs
 
 main :: IO ()
 main = do
-    print (sumList(doubleEverySecond [1,1,1,1,1,1]))
+    let xs = [1,1,1,1,1,1,1]
+    print (doubleEveryOther [1,2,3,3])
+    print (doubleEveryOther xs)
+    print (sumList(doubleEveryOther xs))
     print (toDigits 5678053)
     print (toDigits 0)
     print (toDigits (-12))
