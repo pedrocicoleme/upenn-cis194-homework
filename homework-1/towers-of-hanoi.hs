@@ -22,13 +22,20 @@ hanoi4 2 a b c _ = [(a, c), (a, b), (c, b)]
 --hanoi4 3 a b c d = [(a, d), (a, c), (a, b), (c, b), (d, b)]
 hanoi4 n a b c d = (hanoi4 (n-2) a d c b) ++ [(a, c), (a, b), (c, b)] ++ (hanoi4 (n-2) d b a c)
 
--- based on wikipedia
+-- based on wikipedia - https://en.wikipedia.org/wiki/Tower_of_Hanoi#With_four_pegs_and_beyond
 hanoi4opt :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
 hanoi4opt 0 _ _ _ _ = []
-hanoi4opt 1 a b _ _ = [(a, b)]
-hanoi4opt 2 a b c _ = [(a, c), (a, b), (c, b)]
---hanoi4opt 3 a b c d = [(a, d), (a, c), (a, b), (c, b), (d, b)]
-hanoi4opt n a b c d = (hanoi4 (n-2) a d c b) ++ [(a, c), (a, b), (c, b)] ++ (hanoi4 (n-2) d b a c)
+hanoi4opt n a b c d =
+    (hanoi4opt (n-(round (sqrt (fromIntegral(2*n+1)))) + 1) a d c b) ++
+    (hanoi (((round (sqrt (fromIntegral(2*n+1)))) - 1)) a b c) ++
+    (hanoi4opt (n-(round (sqrt (fromIntegral(2*n+1)))) + 1) d a c b)
+
+hanoi5opt :: Integer -> Peg -> Peg -> Peg -> Peg -> Peg -> [Move]
+hanoi5opt 0 _ _ _ _ _ = []
+hanoi5opt n a b c d e =
+    (hanoi5opt (n-(round (sqrt (fromIntegral(2*n+1)))) + 1) a d c b e) ++
+    (hanoi4opt (((round (sqrt (fromIntegral(2*n+1)))) - 1)) a b c e) ++
+    (hanoi5opt (n-(round (sqrt (fromIntegral(2*n+1)))) + 1) d a c b e)
 
 main :: IO ()
 main = do
@@ -38,4 +45,9 @@ main = do
     print (hanoi4 2 "a" "b" "c" "d")
     print (hanoi4 3 "a" "b" "c" "d")
     print (hanoi4 4 "a" "b" "c" "d")
-    print (length (hanoi4 15 "a" "b" "c" "d")) -- should be 32767
+    print (length (hanoi4 15 "a" "b" "c" "d"))
+    print (hanoi4opt 2 "a" "b" "c" "d")
+    print (hanoi4opt 3 "a" "b" "c" "d")
+    print (hanoi4opt 4 "a" "b" "c" "d")
+    print (length (hanoi4opt 15 "a" "b" "c" "d")) -- should be 129 optimally
+    print (length (hanoi5opt 15 "a" "b" "c" "d" "e")) -- should be 129 optimally
