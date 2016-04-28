@@ -15,6 +15,8 @@ hanoi 0 _ _ _ = []
 --hanoi 3 a b c = [(a, b), (a, c), (b, c), (a, b), (c, a), (c, b), (a,b)]
 hanoi n a b c = (hanoi (n-1) a c b) ++ [(a, b)] ++ (hanoi (n-1) c b a)
 
+-- Exercise 6
+
 hanoi4 :: Integer -> Peg -> Peg -> Peg -> Peg -> [Move]
 hanoi4 0 _ _ _ _ = []
 hanoi4 1 a b _ _ = [(a, b)]
