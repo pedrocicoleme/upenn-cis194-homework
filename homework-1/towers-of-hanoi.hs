@@ -50,4 +50,4 @@ main = do
     print (hanoi4opt 3 "a" "b" "c" "d")
     print (hanoi4opt 4 "a" "b" "c" "d")
     print (length (hanoi4opt 15 "a" "b" "c" "d")) -- should be 129 optimally
-    print (length (hanoi5opt 15 "a" "b" "c" "d" "e")) -- should be 129 optimally
+    print (length (hanoi5opt 15 "a" "b" "c" "d" "e"))
