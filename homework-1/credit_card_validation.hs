@@ -33,7 +33,7 @@ validate x = (rem (sumDigits (doubleEveryOther (toDigits x))) 10) == 0
 main :: IO ()
 main = do
     let xs = [1,1,1,1,1,1,1]
-    print (sumDigits  [16,7,12,5])
+    print (sumDigits [16,7,12,5])
     print (doubleEveryOther [1,2,3,3])
     print (doubleEveryOther xs)
     print (toDigits 5678053)
